@@ -1,0 +1,182 @@
+/* style.css */
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: "Poppins", sans-serif;
+  
+}
+
+/* Landing page container */
+.landing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Landing box */
+.landing-box {
+    background: rgba(255, 255, 255, 0.25); /* Brighter glass effect */
+    backdrop-filter: blur(15px);
+    padding: 60px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+    color: #000000;
+}
+
+/* Heading */
+.landing-box h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: #ffffff; /* Primary color as white */
+}
+
+/* Paragraph */
+.landing-box p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #f4f4f4; /* Light text */
+    line-height: 1.5;
+}
+
+/* Buttons */
+.landing-box a.button {
+    text-decoration: none;
+    background: #ff6f61; /* Coral accent */
+    color: #ffffff;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.landing-box a.button:hover {
+    background: #e0554f; /* Darker coral */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #ffffff; /* White navbar */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #ffffff !important; /* Primary color as white */
+}
+
+.nav-link {
+    font-size: 1rem;
+    color: #ffffff !important; /* Primary color as white */
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff6f61 !important; /* Coral hover */
+}
+
+/* Footer */
+footer {
+    background-color: #f8f8f8; /* Light footer */
+    color: #333333;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 60px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.card-header {
+    background-color: #ffffff !important; /* Primary color as white */
+    color: #1e3c72 !important; /* Dark text for contrast */
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #ffffff; /* Primary color as white */
+    border: none;
+    color: #1e3c72; /* Dark text on white button */
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.02);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #ffffff; /* Primary color as white */
+    color: #1e3c72; /* Dark text for readability */
+    text-transform: uppercase;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .landing-box {
+        padding: 40px 20px;
+    }
+    .landing-box h1 {
+        font-size: 2.2rem;
+    }
+    .landing-box p {
+        font-size: 1rem;
+    }
+    .landing-box a.button {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+}
+
+
+.login-image {
+    background: url('../images/login_side_image.jpg') no-repeat center center;
+    background-size: cover;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    filter: brightness(0.85);
+    height: 100%;
+}

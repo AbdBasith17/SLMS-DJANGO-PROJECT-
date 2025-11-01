@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registration Complete | Student Management{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <div class="alert alert-success">
+        <h3>Registration Successful!</h3>
+        <p>Check your email for the first-login link to access your account.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary mt-3">Go to Home</a>
+    </div>
+</div>
+{% endblock %}
