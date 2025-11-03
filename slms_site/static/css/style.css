@@ -180,3 +180,17 @@ table tr:hover {
     filter: brightness(0.85);
     height: 100%;
 }
+
+footer {
+    background: linear-gradient(180deg, #212529 0%, #000 100%);
+}
+
+footer a:hover {
+    color: #0d6efd !important;
+    text-decoration: underline;
+}
+
+footer img {
+    filter: brightness(0) invert(1);
+}
+

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Student Management System{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+   
+    <nav class="navbar navbar-expand-lg"
+         style="
+         background: rgba(255, 255, 255, 0.75);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+         ">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'login' %}">
+                <img src="{% static 'images/logopng.png' %}" alt="Student Management System" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        {% if user.role == 'Admin' %}
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'student_list' %}">Students</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                        {% elif user.role == 'Student' %}
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'profile' %}">Profile</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   <!--------------------------------------------------->
+    <main class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- FOOOOOOOOOOOOOOOOOOOOTER -->
+    <footer class="  pt-5 pb-4 mt-5">
+        <div class="container text-center text-md-start">
+            <div class="row align-items-center">
+
+              
+                <div class="col-md-4 mb-4  text-md-start">
+                    <a href="{% url 'landing' %}">
+                        <img src="{% static 'images/logopng.png' %}" alt="SMS Logo" height="90" class="mb-1">
+                    </a>
+                    <p class="text-muted small">
+                   <Strong> Academy for IT upskilling and digital transformation.</strong>  <br>
+                    Best IT training institute in Kerala with expert-led courses and placement-focused programs.
+                </p>
+                </div>
+
+           
+                <div class="col-md-4 mb-4 text-center">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'login' %}" class="text-dark text-decoration-none">Login</a></li>
+                        <li><a href="{% url 'register' %}" class="text-dark text-decoration-none">Register</a></li>
+                        <li><a href="{% url 'landing' %}" class="text-dark text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-dark text-decoration-none">About</a></li>
+                    </ul>
+                </div>
+
+                
+                <div class="col-md-4 mb-4 text-center text-md-end">
+                    <h5 class="fw-bold mb-3">Connect with Us</h5>
+                    <a href="https://facebook.com" target="_blank" class="text-dark me-3 fs-4">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="text-dark me-3 fs-4">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="text-dark me-3 fs-4">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="text-dark fs-4">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+
+            <hr class="border-light my-3">
+
+            <div class="text-center small text-muted">
+                &copy; {{ year|default:2025 }} Student Management System. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
