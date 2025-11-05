@@ -1,128 +1,41 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | SLMS</title>
+{% extends 'students/students_base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #f5f7fa;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            height: 100vh;
-            background-color: #1e3c72;
-            color: white;
-            padding-top: 20px;
-            position: fixed;
-            width: 220px;
-        }
-
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            margin-bottom: 5px;
-            border-radius: 8px;
-        }
-
-        .sidebar a:hover {
-            background-color: #16325c;
-        }
-
-        /* Main content */
-        .main-content {
-            margin-left: 240px;
-            padding: 20px;
-        }
-
-        .card {
-            border-radius: 15px;
-        }
-
-        .welcome-msg {
-            margin-bottom: 20px;
-        }
-
-        .dashboard-card {
-            transition: transform 0.2s;
-        }
-
-        .dashboard-card:hover {
-            transform: scale(1.05);
-        }
-    </style>
-</head>
-<body>
-
-<!-- Sidebar -->
-<div class="sidebar">
-    <h3 class="text-center mb-4">SLMS</h3>
-    <a href="{% url 'student_dashboard' %}">Dashboard</a>
-    <a href="{% url 'student_courses' %}">My Courses</a>
-    <a href="{% url 'student_profile' %}">Profile</a>
-    <a href="{% url 'logout' %}">Logout</a>
-</div>
-
-<!-- Main Content -->
-<div class="main-content">
-    <div class="welcome-msg">
-        <h2>Welcome, {{ user.first_name }}!</h2>
-        <p class="text-muted">Here’s your student dashboard.</p>
-    </div>
-
-    <div class="row g-4">
-
-        <!-- Total Courses -->
-        <div class="col-md-4">
-            <div class="card shadow dashboard-card p-3 text-center">
-                <h5>Total Courses</h5>
-                <h2>{{ total_courses }}</h2>
-            </div>
-        </div>
-
-        <!-- Completed Courses -->
-        <div class="col-md-4">
-            <div class="card shadow dashboard-card p-3 text-center">
-                <h5>Completed Courses</h5>
-                <h2>{{ completed_courses }}</h2>
-            </div>
-        </div>
-
-        <!-- Pending Assignments -->
-        <div class="col-md-4">
-            <div class="card shadow dashboard-card p-3 text-center">
-                <h5>Pending Assignments</h5>
-                <h2>{{ pending_assignments }}</h2>
-            </div>
+{% block content %}
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card p-3 text-center ">
+            <h6>Total Courses</h6>
+            <h2>{{ total_courses }}</h2>
         </div>
     </div>
-
-    <!-- Recent Activities -->
-    <div class="mt-5">
-        <h4>Recent Activities</h4>
-        <div class="list-group mt-2">
-            {% for activity in recent_activities %}
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                {{ activity.description }}
-                <span class="text-muted small">{{ activity.date|date:"M d, Y" }}</span>
-            </div>
-            {% empty %}
-            <div class="list-group-item">No recent activities</div>
-            {% endfor %}
+    <div class="col-md-4">
+        <div class="card p-3 text-center ">
+            <h6>Completed Courses</h6>
+            <h2>{{ completed_courses }}</h2>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center ">
+            <h6>Total Reviews</h6>
+            <h2>{{ total_reviews }}</h2>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<div class="mt-5">
+    <h5>Enrolled Courses</h5>
+    <div class="row g-3 mt-2">
+        {% for enrollment in enrolled_courses %}
+        <div class="col-md-4">
+            <div class="card p-3 course-card">
+                <h6>{{ enrollment.course.name }}</h6>
+                <p class="text-muted">Code: {{ enrollment.course.code }}</p>
+                <p>{{ enrollment.course.description|truncatewords:20 }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No courses enrolled yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

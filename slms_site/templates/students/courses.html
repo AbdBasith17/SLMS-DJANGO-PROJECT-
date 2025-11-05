@@ -1,0 +1,23 @@
+{% extends 'students/students_base.html' %}
+
+{% block content %}
+<h5>Available Courses</h5>
+<div class="row g-4 mt-2">
+    {% for c in courses %}
+    <div class="col-md-4">
+        <div class="card p-3 course-card bg-light">
+            <h6>{{ c.name }}</h6>
+            <p class="text-muted">Code: {{ c.code }}</p>
+            <p>{{ c.description|truncatewords:20 }}</p>
+            {% if c.id in enrolled_courses_ids %}
+                <button class="btn btn-secondary btn-sm" disabled>Enrolled</button>
+            {% else %}
+                <a href="{% url 'students:enroll_course' c.id %}" class="btn btn-primary btn-sm">Enroll</a>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>No available courses to enroll.</p>
+    {% endfor %}
+</div>
+{% endblock %}

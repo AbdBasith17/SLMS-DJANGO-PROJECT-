@@ -1,8 +1,12 @@
 from django.urls import path
 from . import views
 
+app_name = 'students'
+
 urlpatterns = [
-    path('dashboard/', views.student_dashboard, name='student_dashboard'),
-    path('courses/', views.student_courses, name='student_courses'),
-    path('profile/', views.student_profile, name='student_profile'),
+    path('dashboard/', views.dashboard, name='student_dashboard'),
+    path('profile/', views.profile, name='student_profile'),
+    path('courses/', views.courses, name='student_courses'),
+    path('enroll/<int:course_id>/', views.enroll_course, name='enroll_course'),
+    # path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]

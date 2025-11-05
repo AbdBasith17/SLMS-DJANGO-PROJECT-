@@ -8,6 +8,7 @@ urlpatterns = [
     path('first-login/<uidb64>/<token>/', views.first_login, name='first_login'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
+    path('resend-first-login/', views.resend_first_login, name='resend_first_login'),
 
     path('forgot-password/', auth_views.PasswordResetView.as_view(
         template_name='auth/forgot_password.html',

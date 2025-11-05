@@ -1,0 +1,22 @@
+<!-- templates/auth/resend_first_login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resend First Login Link</title>
+</head>
+<body>
+    <h2>Resend First Login Link</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="email">Enter your email:</label>
+        <input type="email" name="email" id="email" required>
+        <button type="submit">Resend Link</button>
+    </form>
+</body>
+</html>

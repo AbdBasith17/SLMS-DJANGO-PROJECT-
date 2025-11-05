@@ -1,0 +1,17 @@
+
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center p-4">
+        <p>Are you sure you want to logout?</p>
+        <div class="d-flex justify-content-center gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
