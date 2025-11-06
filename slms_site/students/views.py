@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import StudentProfile, Course, Enrollment
+from django.contrib import messages
 
 @login_required
 def dashboard(request):
@@ -69,3 +70,14 @@ from django.contrib.auth.decorators import login_required
     
 #     return render(request, 'students/edit_profile.html', {'form': form})
 
+@login_required
+def course_detail(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    lessons = course.lessons.all() if hasattr(course, 'lessons') else []  # Handle missing related_name
+    enrollment = Enrollment.objects.filter(course=course, student__user=request.user).first()
+
+    return render(request, 'students/course_detail.html', {
+        'course': course,
+        'lessons': lessons,
+        'enrollment': enrollment,
+    })

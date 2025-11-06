@@ -35,6 +35,9 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.code})"
+    
+
+
 
 class Enrollment(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
@@ -47,6 +50,8 @@ class Enrollment(models.Model):
     def __str__(self):
         return f"{self.student.user.username} enrolled in {self.course.name}"
     
+
+
 
 
     

@@ -1,0 +1,26 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4">
+        <h3 class="mb-3">Edit Course</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Course Name</label>
+                {{ form.name }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.code.id_for_label }}" class="form-label">Course Code</label>
+                {{ form.code }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                {{ form.description }}
+            </div>
+            <button type="submit" class="btn btn-success">Update Course</button>
+            <a href="{% url 'admin_panel:courses_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

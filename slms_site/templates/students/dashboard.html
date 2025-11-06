@@ -31,6 +31,9 @@
                 <h6>{{ enrollment.course.name }}</h6>
                 <p class="text-muted">Code: {{ enrollment.course.code }}</p>
                 <p>{{ enrollment.course.description|truncatewords:20 }}</p>
+                <!-- students/dashboard.html -->
+<a href="{% url 'students:course_detail' enrollment.course.id %}" class="btn btn-primary">View Lessons</a>
+
             </div>
         </div>
         {% empty %}

@@ -1,0 +1,54 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<div class="row g-4 text-center">
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5 class="mb-3">Total Students</h5>
+            <h3 >{{ total_students }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5 class="mb-3">Total Courses</h5>
+            <h3>{{ total_courses }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5 class="mb-3">Active Enrollments</h5>
+            <h3>{{ active_enrollments }}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4 p-3">
+    <h5>Recent Students</h5>
+    <table class="table table-striped mt-2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Course</th>
+                <th>Course ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enrollment in recent_enrollments %}
+    {% if enrollment.student.user.role == 'Student' %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ enrollment.student.user.get_full_name|default:enrollment.student.user.username }}</td>
+            <td>{{ enrollment.student.student_id }}</td>
+            <td>{{ enrollment.course.name }}</td>
+            <td>{{ enrollment.course.code }}</td>
+        </tr>
+    {% endif %}
+{% empty %}
+<tr><td colspan="5" class="text-center">No students found.</td></tr>
+{% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

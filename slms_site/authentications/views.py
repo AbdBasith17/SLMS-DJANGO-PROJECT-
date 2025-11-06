@@ -18,6 +18,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            user.role = 'Student'
             user.is_active = False  
             user.save()
 
@@ -57,14 +58,16 @@ def first_login(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
-    if user is not None and first_login_token.check_token(user, token):
+    # Only allow first login for students
+    if user is not None and user.role == 'Student' and first_login_token.check_token(user, token):
         user.is_active = True
         user.save()
         login(request, user)
         return redirect('students:student_dashboard')
     else:
         messages.error(request, "Invalid or expired link. You can resend a new first login link.")
-        return redirect('resend_first_login')  # Redirect to resend page
+        return redirect('resend_first_login')  
+
 
 
 # -----------------------------
@@ -78,7 +81,9 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 if user.role == 'Admin':
-                    return redirect('admin_dashboard')
+                    return redirect('admin_panel:dashboard')
+                elif user.role == 'SuperAdmin':
+                    return redirect('admin_panel:dashboard')
                 else:
                     return redirect('students:student_dashboard')
             else:
@@ -107,6 +112,10 @@ def resend_first_login(request):
         email = request.POST.get("email")
         try:
             user = User.objects.get(email=email)
+            if user.role != 'Student':
+                messages.info(request, "First login link is only for students. Please login normally.")
+                return redirect('login')
+
             if user.is_active:
                 messages.info(request, "Your account is already active. Please login.")
                 return redirect('login')
@@ -128,6 +137,7 @@ def resend_first_login(request):
             )
             messages.success(request, "A new first login link has been sent to your email.")
             return redirect('login')
+
         except User.DoesNotExist:
             messages.error(request, "No account found with this email.")
     return render(request, 'auth/resend_link.html')

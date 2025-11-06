@@ -25,7 +25,7 @@ urlpatterns = [
     # path('', landing_page, name='landing'),  
     path('students/', include('students.urls')),  
     path('auth/', include('authentications.urls')),
-    # path('admin-panel/', include('admin_panel.urls')),
+    path('admin-panel/', include('admin_panel.urls')),
   
 ]
 
