@@ -113,18 +113,24 @@
     </div>
 
     <div class="main-content">
-        <header class="header card-header-custom">
-            <div class="d-flex align-items-center">
-                <div>
-                    <h5>Hi {{ user.get_full_name|default:user.username }}</h5>
-                    <h3 class="text-muted">Welcome To Admin Panel!</h3>
-                </div>
-            </div>
-        </header>
+        <header class="header card-header-custom d-flex justify-content-between align-items-center">
+    <div>
+        <h5>Hi {{ user.get_full_name|default:user.username }}</h5>
+        <h3 class="text-muted">Welcome To Admin Panel!</h3>
+    </div>
+    
+    <a href="{% url 'change_password' %}" class="btn btn-sm  d-flex align-items-center">
+        <i class="bi bi-lock me-2"></i>
+        Change Password
+    </a>
+</header>
+
 
         {% block content %}{% endblock %}
     </div>
     {% include 'students/logout_model.html' %}
+
+
 <!-- Toast container -->
 <div aria-live="polite" aria-atomic="true" class="position-relative">
   <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
@@ -155,11 +161,6 @@
     })
   })
 </script>
-
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

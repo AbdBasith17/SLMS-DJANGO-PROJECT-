@@ -4,15 +4,15 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from .forms import UserRegisterForm, UserLoginForm
 from .models import User
 from .tokens import first_login_token
 
-# -----------------------------
-# User Registration
-# -----------------------------
+
+# user regg
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -22,7 +22,7 @@ def register(request):
             user.is_active = False  
             user.save()
 
-            # Send first login email
+            
             current_site = get_current_site(request)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = first_login_token.make_token(user)
@@ -34,8 +34,8 @@ def register(request):
                 'Your First Login Link',
                 message,
                 'Student Management <basipp123@gmail.com>',
-                [user.email],
-                fail_silently=False
+                [user.email]
+               
             )
 
             return redirect('registration_complete')
@@ -48,9 +48,8 @@ def registration_complete(request):
     return render(request, 'auth/reg_completed.html')
 
 
-# -----------------------------
-# First Login via Token
-# -----------------------------
+#  with  token first time login 
+
 def first_login(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -58,7 +57,7 @@ def first_login(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
-    # Only allow first login for students
+    
     if user is not None and user.role == 'Student' and first_login_token.check_token(user, token):
         user.is_active = True
         user.save()
@@ -70,9 +69,7 @@ def first_login(request, uidb64, token):
 
 
 
-# -----------------------------
-# User Login
-# -----------------------------
+
 def user_login(request):
     if request.method == "POST":
         form = UserLoginForm(request, data=request.POST)
@@ -80,9 +77,7 @@ def user_login(request):
             user = form.get_user()
             if user.is_active:
                 login(request, user)
-                if user.role == 'Admin':
-                    return redirect('admin_panel:dashboard')
-                elif user.role == 'SuperAdmin':
+                if user.role == 'Admin' or user.role == 'SuperAdmin':
                     return redirect('admin_panel:dashboard')
                 else:
                     return redirect('students:student_dashboard')
@@ -96,17 +91,13 @@ def user_login(request):
     return render(request, 'auth/login.html', {'form': form})
 
 
-# -----------------------------
-# User Logout
-# -----------------------------
+
 def user_logout(request):
     logout(request)
     return redirect('login')
 
 
-# -----------------------------
-# Resend First Login Link
-# -----------------------------
+
 def resend_first_login(request):
     if request.method == "POST":
         email = request.POST.get("email")

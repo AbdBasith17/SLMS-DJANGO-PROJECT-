@@ -4,14 +4,16 @@
     <h5>Courses List</h5>
     <a href="{% url 'admin_panel:course_add' %}" class="btn btn-success">Add New Course</a>
 </div>
+
 <div class="card p-3">
-    <table class="table table-striped">
+    <table class="table table-striped align-middle">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Code</th>
                 <th>Description</th>
+                <th>Notion Link</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,14 +23,22 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ course.name }}</td>
                 <td>{{ course.code }}</td>
-                <td style="width: 60%; font-size: small;">{{ course.description }}</td>
-                <td style="width: 13%; ">
+                <td style="width: 30%; font-size: small;">{{ course.description|truncatewords:20 }}</td>
+                <td>
+                    {% if course.notion_link %}
+                        <a href="{{ course.notion_link }}" target="_blank" class="text-primary text-decoration-underline">Open</a>
+                    {% else %}
+                        <span class="text-muted">Not set</span>
+                    {% endif %}
+                </td>
+                <td style="width: 13%;">
                     <a href="{% url 'admin_panel:course_edit' course.id %}" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="{% url 'admin_panel:course_delete' course.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to Delete this Course?')">Delete</a>
+                    <a href="{% url 'admin_panel:course_delete' course.id %}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
                 </td>
             </tr>
             {% empty %}
-            <tr><td colspan="5" class="text-center">No courses found.</td></tr>
+            <tr><td colspan="6" class="text-center">No courses found.</td></tr>
             {% endfor %}
         </tbody>
     </table>

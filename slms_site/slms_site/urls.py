@@ -19,9 +19,11 @@ from django.urls import path, include
 # from students.views import landing_page  
 from django.conf import settings
 from django.conf.urls.static import static
+from authentications import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', auth_views.user_login, name='landing'),
     # path('', landing_page, name='landing'),  
     path('students/', include('students.urls')),  
     path('auth/', include('authentications.urls')),

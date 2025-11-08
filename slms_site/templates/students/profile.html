@@ -19,10 +19,18 @@
 
         </div>
 
-        <button type="button" class="btn btn-custom d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-            <i class="bi bi-pencil me-2"></i>
-            Edit Profile
-        </button>
+        <div class="d-flex flex-column align-items-start gap-2 mt-3">
+    <button type="button" class="btn btn-custom d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+        <i class="bi bi-pencil me-2"></i>
+        Edit Profile
+    </button>
+
+    <a href="{% url 'change_password' %}" class="btn btn-custom  d-flex align-items-center">
+        <i class="bi bi-lock me-2"></i>
+        Change Password
+    </a>
+</div>
+
     </div>
 
 </div>

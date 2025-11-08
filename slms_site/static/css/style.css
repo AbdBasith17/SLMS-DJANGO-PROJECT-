@@ -182,7 +182,7 @@ table tr:hover {
 }
 
 footer {
-    background: linear-gradient(180deg, #212529 0%, #000 100%);
+    background: wheat;
 }
 
 footer a:hover {
@@ -190,7 +190,5 @@ footer a:hover {
     text-decoration: underline;
 }
 
-footer img {
-    filter: brightness(0) invert(1);
-}
+
 
